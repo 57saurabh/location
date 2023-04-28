@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+    <style>
+        body{
+            background-color: black;
+            color: white;
+            /* text-align: center; */
+            font-size: 30px;
+        }
+        .div{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 90vh;
+        }
+    </style>
+
+  <body>
+
+    <div class="div">
+        <h1>Your Current location</h1>
+    <div id="location"></div>
+    </div>
+
+    <script>
+      var div  = document.getElementById("location");
+      function getLocation() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(showPosition, showError);
+        } else {
+          div.innerHTML = "The Browser Does not Support Geolocation";
+        }
+      }
+
+        //Latitude: 28.6325348  
+        //Longitude: 77.4357627
+        let Clat = 28.6325348;
+        let Clongi= 77.4357627;
+        let maxlat=28.634072;
+        let maxLongi=77.445513;
+      const distance = Math.sqrt(Math.pow((maxlat-Clat), 2)+Math.pow((maxLongi-Clongi), 2));
+      
+      function showPosition(position) {
+          div.innerHTML = "Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude;
+        //   console.log("Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude)
+        // let userdistance = Math.sqrt(Math.pow((position.coords.latitude-Clat), 2)+Math.pow((position.coords.longitude-Clongi), 2));
+    //     if(userdistance<=distance){
+    //         console.log("You are in the range")
+    //     }
+    //     else{
+    //         console.log("You are not in the range")
+    //     }
+    //    console.log(userdistance) 
+    //    console.log(distance) 
+      }
+
+
+      function showError(error) {
+        if(error.PERMISSION_DENIED){
+            div.innerHTML = "The User have denied the request for Geolocation.";
+        }
+      }
+      getLocation();
+    </script>
+  </body>
+</html>
